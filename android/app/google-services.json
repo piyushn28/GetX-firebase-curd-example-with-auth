@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175004096229",
+    "project_id": "anandyogalaya-8991a",
+    "storage_bucket": "anandyogalaya-8991a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175004096229:android:835beef23125a29ce8a60c",
+        "android_client_info": {
+          "package_name": "com.pixamentory.AnandYogalaya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175004096229-qg06reorcoqr8788m8hrc0n2hp2lan3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pixamentory.AnandYogalaya",
+            "certificate_hash": "9227bfb6d2dbec77522d5cfb1456b8b180f62db4"
+          }
+        },
+        {
+          "client_id": "175004096229-oifou066q9h1t7mnofs693m0ni5du10c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDClV1HJqxxa0Vq2BOH3LxeODmwnBC8lEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175004096229-oifou066q9h1t7mnofs693m0ni5du10c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

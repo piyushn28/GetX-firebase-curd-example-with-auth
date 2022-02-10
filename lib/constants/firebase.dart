@@ -1,0 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_application_1/controllers/user_controller.dart';
+import '../controllers/auth_controller.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+AuthController authController = AuthController.instance;
+UserController userController = UserController.instance;
+
+final Future<FirebaseApp> initialization = Firebase.initializeApp();
+FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseMessaging fcm = FirebaseMessaging.instance;
+GoogleSignIn googleSign = GoogleSignIn();
