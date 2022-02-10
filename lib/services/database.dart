@@ -22,27 +22,18 @@ class Database {
     }
   }
 
-  Future<UserModel?> getCurrUser() async {
+  Future<UserModel> getUser(String uid) async {
     try {
-      DocumentSnapshot doc = await _firebaseFirestore
-          .collection("users")
-          .doc(auth.currentUser!.uid)
-          .get();
-      return UserModel.fromSnapshot(doc);
+      DocumentSnapshot _doc =
+      await _firebaseFirestore.collection("users").doc(uid).get();
+
+      return UserModel.fromSnapshot(_doc);
     } catch (e) {
       print(e);
+      rethrow;
     }
   }
 
-  Future<UserModel?> getUser(String uid) async {
-    try {
-      DocumentSnapshot doc =
-          await _firebaseFirestore.collection("users").doc(uid).get();
-      return UserModel.fromSnapshot(doc);
-    } catch (e) {
-      print(e);
-    }
-  }
 
   Future<void> addTodo(String content, String uid) async {
     try {
@@ -73,4 +64,46 @@ class Database {
       return retVal;
     });
   }
+
+
+  Future<void> updateTodo(bool newValue, String uid, String todoId) async {
+    try {
+      _firebaseFirestore
+          .collection("users")
+          .doc(uid)
+          .collection("todos")
+          .doc(todoId)
+          .update({"done": newValue});
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> updateOne(
+      String newcontentValue, String uid, String todoId) async {
+    try {
+      _firebaseFirestore
+          .collection("users")
+          .doc(uid)
+          .collection("todos")
+          .doc(todoId)
+          .update({"content": newcontentValue});
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  deleteOne(String uid, String todoId) async {
+    try{
+      _firebaseFirestore.collection("users").doc(uid).collection("todos").doc(todoId).delete();
+    }
+    catch(e){print(e);
+    rethrow;
+    }
+
+  }
+
+
 }

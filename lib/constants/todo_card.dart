@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../models/todo.dart';
 import '../services/database.dart';
 
-class TodoCard extends StatelessWidget {
-  String? uid;
-  TodoModel? todo;
+class TodoCard extends StatefulWidget {
+  late String uid;
+  late TodoModel todo;
 
-  TodoCard({Key? key, this.uid, this.todo}) : super(key: key);
+  TodoCard({Key? key,required this.uid, required this.todo}) : super(key: key);
 
+  @override
+  _TodoCardState createState() => _TodoCardState();
+}
+
+class _TodoCardState extends State<TodoCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,24 +23,59 @@ class TodoCard extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Text(
-                todo!.content.toString(),
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: ListTile(
+                  title: Text(widget.todo.content,
+                      style: (widget.todo.done)
+                          ? TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.lineThrough)
+                          : TextStyle(
+                          color:
+                          Theme.of(context).textTheme.bodyText1?.color)),
+                  trailing: Icon(Icons.update),
+                  onTap: () => alertDialog(context),
+                  onLongPress: () => {
+                    Database().deleteOne(widget.uid, widget.todo.todoId),
+                    Get.snackbar(
+                        "TASK DELETED", "Your Task Successfully Deleted !")
+                  }),
             ),
-            // Checkbox(
-            //   value: todo?.done,
-            //   onChanged: (newValue) {
-            //     Database().updateTodo(newValue, uid, todo.todoId);
-            //   },
-            // ),
+            Checkbox(
+              value: widget.todo.done,
+              onChanged: (newValue) {
+                Database().updateTodo(newValue!, widget.uid, widget.todo.todoId);
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  TextEditingController contentupd = new TextEditingController();
+
+  void alertDialog(BuildContext context) {
+    var alert = AlertDialog(
+      title: Text("Update Task"),
+      content: TextFormField(
+        controller: contentupd,
+      ),
+      actions: [
+        FlatButton(
+          child: Text('Update'),
+          onPressed: () {
+            if (contentupd.text != "") {
+              Database()
+                  .updateOne(contentupd.text, widget.uid, widget.todo.todoId);
+              Navigator.of(context).pop();
+            } else {
+              Get.snackbar("Error", "NO UPDATE");
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+      ],
+    );
+    showDialog(context: context, builder: (BuildContext context) => alert);
   }
 }

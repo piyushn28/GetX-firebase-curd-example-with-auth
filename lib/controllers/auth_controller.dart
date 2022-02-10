@@ -30,8 +30,8 @@ class AuthController extends GetxController {
     firebaseUser.bindStream(auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
 
-    googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
-    ever(googleSignInAccount, _setInitialScreenGoogle);
+    //googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
+    //ever(googleSignInAccount, _setInitialScreenGoogle);
   }
 
   _setInitialScreen(User? user) {
@@ -83,6 +83,7 @@ class AuthController extends GetxController {
           Get.find<UserController>().user = _user;
           //Get.back();
         }
+
       }
     } catch (e) {
       Get.snackbar(

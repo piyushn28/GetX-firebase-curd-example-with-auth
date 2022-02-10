@@ -7,7 +7,6 @@ import '../controllers/auth_controller.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 AuthController authController = AuthController.instance;
-UserController userController = UserController.instance;
 
 final Future<FirebaseApp> initialization = Firebase.initializeApp();
 FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;

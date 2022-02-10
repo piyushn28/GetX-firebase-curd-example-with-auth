@@ -16,7 +16,7 @@ class HomePage extends GetWidget<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text('${controller.user?.displayName}')),
+        title: Obx(() =>Text('${controller.user?.displayName ?? ''}') ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -26,15 +26,16 @@ class HomePage extends GetWidget<AuthController> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              if (Get.isDarkMode) {
-                Get.changeTheme(ThemeData.light());
-              } else {
-                Get.changeTheme(ThemeData.dark());
-              }
-            },
-          )
+              icon: Icon(
+                Icons.dark_mode ,
+              ),
+              onPressed: () {
+                if (Get.isDarkMode) {
+                  Get.changeThemeMode(ThemeMode.light);
+                } else {
+                  Get.changeThemeMode(ThemeMode.dark);
+                }
+              })
         ],
       ),
       body: Column(
@@ -100,7 +101,7 @@ class HomePage extends GetWidget<AuthController> {
                     itemCount: todoController.todos.length,
                     itemBuilder: (_, index) {
                       return TodoCard(
-                          uid: controller.user?.uid,
+                          uid: controller.user?.uid ?? '',
                           todo: todoController.todos[index]);
                     },
                   ),

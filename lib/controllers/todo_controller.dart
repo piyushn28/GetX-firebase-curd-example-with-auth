@@ -12,8 +12,12 @@ class TodoController extends GetxController {
 
   @override
   void onInit() {
-    print("uiddd le------------${authController.user!.uid}");
-    todoList
-        .bindStream(Database().todoStream(authController.user!.uid)); //stream coming from firebase
+    //print("uiddd le------------${authController.user!.uid}");
+    try{
+      todoList
+          .bindStream(Database().todoStream(authController.user!.uid));
+    }catch(e){
+      print(e);
+    }
   }
 }
